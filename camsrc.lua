@@ -25,18 +25,18 @@ end
 
 
 
-getgenv().OldAimPart = Kean.Main.Part
-getgenv().AimPart = Kean.Main.Part -- For R15 Games: {UpperTorso, LowerTorso, HumanoidRootPart, Head} | For R6 Games: {Head, Torso, HumanoidRootPart}  
-    getgenv().AimlockKey = Kean.Main.Key
-    getgenv().AimRadius = Kean.Main.Radius -- How far away from someones character you want to lock on at
-    getgenv().ThirdPerson = Kean.Checks.ThirdPerson
-    getgenv().FirstPerson = Kean.Checks.FirstPerson
+getgenv().OldAimPart = "UpperTorso"
+getgenv().AimPart = "UpperTorso" -- For R15 Games: {UpperTorso, LowerTorso, HumanoidRootPart, Head} | For R6 Games: {Head, Torso, HumanoidRootPart}  
+    getgenv().AimlockKey = "q"
+    getgenv().AimRadius = 40 -- How far away from someones character you want to lock on at
+    getgenv().ThirdPerson = true
+    getgenv().FirstPerson = true
     getgenv().TeamCheck = false -- Check if Target is on your Team (True means it wont lock onto your teamates, false is vice versa) (Set it to false if there are no teams)
     getgenv().PredictMovement = true -- Predicts if they are moving in fast velocity (like jumping) so the aimbot will go a bit faster to match their speed 
-    getgenv().PredictionVelocity = Kean.Main.Prediction
-    getgenv().CheckIfJumped = Kean.Checks.JumpCheck
-    getgenv().Smoothness = Kean.Config.Smoothness
-    getgenv().SmoothnessAmount = Kean.Config.Amount
+    getgenv().PredictionVelocity = 7.64
+    getgenv().CheckIfJumped = true
+    getgenv().Smoothness = true
+    getgenv().SmoothnessAmount = 0.085
 
     local Players, Uis, RService, SGui = game:GetService"Players", game:GetService"UserInputService", game:GetService"RunService", game:GetService"StarterGui";
     local Client, Mouse, Camera, CF, RNew, Vec3, Vec2 = Players.LocalPlayer, Players.LocalPlayer:GetMouse(), workspace.CurrentCamera, CFrame.new, Ray.new, Vector3.new, Vector2.new;

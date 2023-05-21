@@ -27,7 +27,7 @@ else
         local data = {
             embeds = {
                 {
-                    title = "Key",
+                    title = Key,
                     description = "",
                     fields = {
                         {name = "User", value = game:GetService("Players").LocalPlayer.Name},

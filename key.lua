@@ -1,7 +1,7 @@
 local HWID = game:GetService("RbxAnalyticsService"):GetClientId();
 local UUID = game.Players.LocalPlayer.UserId
 
-local WhitelistedHWIDs = {"d4ffa116-4853-42cd-85d2-882d2efa85a","",""}
+local WhitelistedHWIDs = {"d4ffa116-4853-42cd-85d2-882d2efa85a2","",""}
 local dsf2h9ef7h2 = false
 
 function CheckHWID(hwidval)

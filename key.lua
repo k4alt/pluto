@@ -18,7 +18,7 @@ end
 dsf2h9ef7h2 = CheckHWID(HWID)
 
 if dsf2h9ef7h2 == true then
-    print(nil)
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/k4alt/pluto/main/src.lua"))()
     else
     game.Players.LocalPlayer:Kick("Issue found")
 end

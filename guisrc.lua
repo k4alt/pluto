@@ -1,6 +1,40 @@
-local Kean = {
+getgenv().Pluto = {
+    Silent = {
+        Enabled = false,
+        Keybind = "k",
+        Part = "UpperTorso",
+        Pred = 0.136,
+        ClosestPart = false,
+    },
+    FOV = {
+        Visible = false,
+        Radius = 30
+    },
+    AutoPred = {
+        Enabled = false,
+        P10 = 0.9,
+        P20 = 0.12588,
+        P30 = 0.11,
+        P40 = 0.123,
+        P50 = 0.1238915416,
+        P60 = 0.136,
+        P70 = 0.136,
+        P80 = 0.165,
+        P90 = 0.14834,
+        P100 = 0.130340,
+        P110 = 0.1455,
+        P120 = 0.1652131,
+        P130 = 0.151,
+        P140 = 0.153,
+        P150 = 0.1923111,
+        P160 = 0.16779123,
+        P170 = 0.1923111
+    }
+}
+
+getgenv().Kean = {
     Main = {
-        Key = "q",
+        Key = key21,
         Prediction = 4.5,
         Radius = 40,
         Part = "UpperTorso"
@@ -15,7 +49,7 @@ local Kean = {
         JumpCheck = true
     },
     AutoPred = {
-        Enabled = true,
+        Enabled = false,
         P40 = 9.6,
         P50 = 9.6,
         P60 = 7.64,
@@ -28,201 +62,474 @@ local Kean = {
     }
 
 }
+-- New example script written by wally
+-- You can suggest changes with a pull request or something
 
-local pingvalue = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
-local split = string.split(pingvalue, '(')
-local ping = tonumber(split[1])
+local repo = 'https://raw.githubusercontent.com/k4alt/pluto/main/'
 
-if Kean.AutoPred.Enabled then
-    if ping > 40 and ping <= 50 then
-        Kean.Main.Prediction = Kean.AutoPred.P50
-    elseif ping > 50 and ping <= 60 then
-        Kean.Main.Prediction = Kean.AutoPred.P60
-    elseif ping > 60 and ping <= 70 then
-        Kean.Main.Prediction = Kean.AutoPred.P70
-    elseif ping > 70 and ping <= 80 then
-        Kean.Main.Prediction = Kean.AutoPred.P80
-    elseif ping > 80 and ping <= 90 then
-        Kean.Main.Prediction = Kean.AutoPred.P90
-    elseif ping > 90 and ping <= 100 then
-        Kean.Main.Prediction = Kean.AutoPred.P100
-    elseif ping > 100 and ping <= 110 then
-        Kean.Main.Prediction = Kean.AutoPred.P110
-    elseif ping > 110 and ping <= 120 then
-        Kean.Main.Prediction = Kean.AutoPred.P120
+local Library = loadstring(game:HttpGet(repo .. 'library.lua'))()
+local ThemeManager = loadstring(game:HttpGet(repo .. 'theme.lua'))()
+local SaveManager = loadstring(game:HttpGet(repo .. 'save.lua'))()
+
+local Window = Library:CreateWindow({
+    -- Set Center to true if you want the menu to appear in the center
+    -- Set AutoShow to true if you want the menu to appear when it is created
+    -- Position and Size are also valid options here
+    -- but you do not need to define them unless you are changing them :)
+
+    Title = 'Pluto CC',
+    Center = true, 
+    AutoShow = true,
+})
+
+-- You do not have to set your tabs & groups up this way, just a prefrence.
+local Tabs = {
+    -- Creates a new tab titled Main
+    Main = Window:AddTab('Main'), 
+    Misc = Window:AddTab('Misc'), 
+    ['UI Settings'] = Window:AddTab('UI Settings'),
+}
+
+-- Groupbox and Tabbox inherit the same functions
+-- except Tabboxes you have to call the functions on a tab (Tabbox:AddTab(name))
+local LeftGroupBox = Tabs.Main:AddLeftGroupbox('Silent')
+
+local MyButton = LeftGroupBox:AddButton('Load', function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/k4alt/pluto/main/src.lua"))()
+end)
+
+LeftGroupBox:AddToggle('MyToggleEn', {
+    Text = 'Enabled',
+    Default = true, -- Default value (true / false)
+    Tooltip = 'Enables/Disables the silent aim', -- Information shown when you hover over the toggle
+})
+
+-- Fetching a toggle object for later use:
+-- Toggles.MyToggle.Value
+
+-- Toggles is a table added to getgenv() by the library
+-- You index Toggles with the specified index, in this case it is 'MyToggle'
+-- To get the state of the toggle you do toggle.Value
+
+-- Calls the passed function when the toggle is updated
+Toggles.MyToggleEn:OnChanged(function()
+    -- here we get our toggle object & then get its value
+    getgenv().Pluto.Silent.Enabled = Toggles.MyToggleEn.Value
+end)
+
+-- Tabboxes are a tiny bit different, but here's a basic example:
+--[[
+
+local TabBox = Tabs.Main:AddLeftTabbox() -- Add Tabbox on left side
+
+local Tab1 = TabBox:AddTab('Tab 1')
+local Tab2 = TabBox:AddTab('Tab 2')
+
+-- You can now call AddToggle, etc on the tabs you added to the Tabbox
+]]
+
+-- Groupbox:AddToggle
+-- Arguments: Index, Options
+
+
+
+LeftGroupBox:AddInput('MyTextbox', {
+    Default = '0.136',
+    Numeric = true, -- true / false, only allows numbers
+    Finished = false, -- true / false, only calls callback when you press enter
+
+    Text = 'Prediction',
+    Tooltip = 'Sets the Prediction', -- Information shown when you hover over the textbox
+
+    Placeholder = 'Prediction', -- placeholder text when the box is empty
+    -- MaxLength is also an option which is the max length of the text
+})
+
+LeftGroupBox:AddToggle('MyToggle', {
+    Text = 'Auto-Pred',
+    Default = false, -- Default value (true / false)
+    Tooltip = 'Toggles Auto Prediction', -- Information shown when you hover over the toggle
+})
+
+
+Toggles.MyToggle:OnChanged(function()
+    -- here we get our toggle object & then get its value
+    getgenv().Pluto.AutoPred.Enabled = Toggles.MyToggle.Value
+end)
+
+Options.MyTextbox:OnChanged(function()
+    getgenv().Pluto.Silent.Pred = Options.MyTextbox.Value
+end)
+
+
+-- This should print to the console: "My toggle state changed! New value: false"
+Toggles.MyToggle:SetValue(false)
+
+-- Arguments: None
+
+LeftGroupBox:AddDropdown('MyDropdown', {
+    Values = { 'HumanoidRootPart', 'UpperTorso', 'LowerTorso', 'Head'},
+    Default = 2, -- number index of the value / string
+    Multi = false, -- true / false, allows multiple choices to be selected
+
+    Text = 'Part',
+    Tooltip = 'What part to aim at (non closest part)', -- Information shown when you hover over the textbox
+})
+
+Options.MyDropdown:OnChanged(function()
+    getgenv().Pluto.Silent.Part = Options.MyDropdown.Value
+end)
+
+LeftGroupBox:AddToggle('MyToggle2', {
+    Text = 'Closest Part',
+    Default = true, -- Default value (true / false)
+    Tooltip = 'Sets Part to Nearest From Mouse', -- Information shown when you hover over the toggle
+})
+
+Toggles.MyToggle2:OnChanged(function()
+    -- here we get our toggle object & then get its value
+    getgenv().Pluto.Silent.ClosestPart = Toggles.MyToggle2.Value
+end)
+
+
+
+LeftGroupBox:AddInput('MyTextboxKeyPl', {
+    Default = 'k',
+    Numeric = false, -- true / false, only allows numbers
+    Finished = false, -- true / false, only calls callback when you press enter
+
+    Text = 'Keybind',
+    Tooltip = 'Sets the Keybind', -- Information shown when you hover over the textbox
+
+    Placeholder = 'Toggle Key', -- placeholder text when the box is empty
+    -- MaxLength is also an option which is the max length of the text
+})
+
+Options.MyTextboxKeyPl:OnChanged(function()
+    getgenv().Pluto.Silent.Keybind = Options.MyTextboxKeyPl.Value
+end)
+
+
+LeftGroupBox:AddToggle('MyToggleUseKey', {
+    Text = 'Use Keybind',
+    Default = true, -- Default value (true / false)
+    Tooltip = 'Use Silent Keybind', -- Information shown when you hover over the toggle
+})
+
+-- Calls the passed function when the toggle is updated
+Toggles.MyToggleUseKey:OnChanged(function()
+    -- here we get our toggle object & then get its value
+    getgenv().usekeybindtoggle = Toggles.MyToggleUseKey.Value
+end)
+
+local LeftGroupBox = Tabs.Main:AddLeftGroupbox('FOV')
+-- Groupbox:AddSlider
+-- Arguments: Idx, Options
+LeftGroupBox:AddToggle('MyToggle3', {
+    Text = 'Visible: ',
+    Default = true, -- Default value (true / false)
+    Tooltip = 'Toggles FOV Visibility', -- Information shown when you hover over the toggle
+})
+
+
+
+-- Calls the passed function when the toggle is updated
+Toggles.MyToggle3:OnChanged(function()
+    -- here we get our toggle object & then get its value
+    getgenv().Pluto.FOV.Visible = Toggles.MyToggle3.Value
+end)
+
+LeftGroupBox:AddSlider('MySlider', {
+    Text = 'Radius: ',
+
+    -- Text, Default, Min, Max, Rounding must be specified.
+    -- Rounding is the number of decimal places for precision.
+
+    -- Example:
+    -- Rounding 0 - 5
+    -- Rounding 1 - 5.1
+    -- Rounding 2 - 5.15
+    -- Rounding 3 - 5.155
+
+    Default = 25,
+    Min = 1,
+    Max = 75,
+    Rounding = 1,
+
+    Compact = false, -- If set to true, then it will hide the label
+})
+
+-- Options is a table added to getgenv() by the library
+
+local Number = Options.MySlider.Value
+Options.MySlider:OnChanged(function()
+    getgenv().Pluto.FOV.Radius = Options.MySlider.Value
+end)
+
+-- This should print to the console: "MySlider was changed! New value: 3"
+Options.MySlider:SetValue(3)
+Toggles.MyToggle2:OnChanged(function()
+    -- here we get our toggle object & then get its value
+    getgenv().Pluto.Silent.ClosestPart = Toggles.MyToggle.Value
+end)
+
+
+
+LeftGroupBox:AddLabel('Color: '):AddColorPicker('ColorPicker', {
+    Default = Color3.new(0, 1, 0), -- Bright green
+    Title = 'Some color', -- Optional. Allows you to have a custom color picker title (when you open it)
+})
+
+Options.ColorPicker:OnChanged(function()
+    joecolor = Options.ColorPicker.Value
+end)
+
+Options.ColorPicker:SetValueRGB(Color3.fromRGB(0, 255, 247))
+
+
+
+
+
+
+
+
+
+
+
+
+local RightGroupBox = Tabs.Main:AddRightGroupbox('Tracer')
+local MyButton = RightGroupBox:AddButton('Load', function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/k4alt/pluto/main/camsrc.lua"))()
+end)
+
+RightGroupBox:AddInput('MyTextboxKey', {
+    Default = 'q',
+    Numeric = false, -- true / false, only allows numbers
+    Finished = false, -- true / false, only calls callback when you press enter
+
+    Text = 'Keybind',
+    Tooltip = 'Sets the Keybind', -- Information shown when you hover over the textbox
+
+    Placeholder = 'Toggle Key', -- placeholder text when the box is empty
+    -- MaxLength is also an option which is the max length of the text
+})
+
+Options.MyTextboxKey:OnChanged(function()
+    getgenv().AimlockKey = Options.MyTextboxKey.Value
+end)
+
+RightGroupBox:AddDropdown('MyDropdown2', {
+    Values = { 'HumanoidRootPart', 'UpperTorso', 'LowerTorso', 'Head'},
+    Default = 2, -- number index of the value / string
+    Multi = false, -- true / false, allows multiple choices to be selected
+
+    Text = 'Part',
+    Tooltip = 'What part to aim at (non closest part)', -- Information shown when you hover over the textbox
+})
+
+Options.MyDropdown2:OnChanged(function()
+    key21 = Options.MyDropdown2.Value
+end)
+
+RightGroupBox:AddInput('MyTextboxPred', {
+    Default = '7.64',
+    Numeric = true, -- true / false, only allows numbers
+    Finished = false, -- true / false, only calls callback when you press enter
+
+    Text = 'Prediction',
+    Tooltip = 'Sets the Prediction', -- Information shown when you hover over the textbox
+
+    Placeholder = 'Prediction Amount', -- placeholder text when the box is empty
+    -- MaxLength is also an option which is the max length of the text
+})
+
+Options.MyTextboxPred:OnChanged(function()
+    getgenv().PredictionVelocity = Options.MyTextboxPred.Value
+end)
+RightGroupBox:AddToggle('MyToggleAutoP', {
+    Text = 'AutoPred',
+    Default = true, -- Default value (true / false)
+    Tooltip = 'Prediction based on your ping', -- Information shown when you hover over the toggle
+})
+
+Toggles.MyToggleAutoP:OnChanged(function()
+    -- here we get our toggle object & then get its value
+    getgenv().Kean.AutoPred.Enabled = Toggles.MyToggleAutoP.Value
+end)
+
+RightGroupBox:AddToggle('MyToggleSmooth', {
+    Text = 'Smoothness',
+    Default = true, -- Default value (true / false)
+    Tooltip = 'Smoothness (makes you look more legit)', -- Information shown when you hover over the toggle
+})
+RightGroupBox:AddSlider('MySliderAM', {
+    Text = 'Smoothness: ',
+
+    -- Text, Default, Min, Max, Rounding must be specified.
+    -- Rounding is the number of decimal places for precision.
+
+    -- Example:
+    -- Rounding 0 - 5
+    -- Rounding 1 - 5.1
+    -- Rounding 2 - 5.15
+    -- Rounding 3 - 5.155
+
+    Default = 0.5,
+    Min = 0.01,
+    Max = 1,
+    Rounding = 2,
+
+    Compact = false, -- If set to true, then it will hide the label
+})
+
+-- Options is a table added to getgenv() by the library
+
+Options.MySliderAM:OnChanged(function()
+    getgenv().SmoothnessAmount = Options.MySliderAM.Value
+end)
+
+Toggles.MyToggleSmooth:OnChanged(function()
+    -- here we get our toggle object & then get its value
+    getgenv().Smoothness = Toggles.MyToggleSmooth.Value
+end)
+local RightGroupBox = Tabs.Main:AddRightGroupbox('Checks')
+
+RightGroupBox:AddToggle('MyToggleFP', {
+    Text = 'First-Person',
+    Default = true, -- Default value (true / false)
+    Tooltip = 'Traces in first person', -- Information shown when you hover over the toggle
+})
+
+Toggles.MyToggleFP:OnChanged(function()
+    -- here we get our toggle object & then get its value
+    getgenv().FirstPerson = Toggles.MyToggleFP.Value
+end)
+RightGroupBox:AddToggle('MyToggleTP', {
+    Text = 'Third-Person',
+    Default = false, -- Default value (true / false)
+    Tooltip = 'Traces in third person', -- Information shown when you hover over the toggle
+})
+
+Toggles.MyToggleTP:OnChanged(function()
+    -- here we get our toggle object & then get its value
+    getgenv().ThirdPerson = Toggles.MyToggleTP.Value
+end)
+
+RightGroupBox:AddToggle('MyToggleJP', {
+    Text = 'Jump-Check',
+    Default = true, -- Default value (true / false)
+    Tooltip = 'Traces them mid air', -- Information shown when you hover over the toggle
+})
+
+Toggles.MyToggleJP:OnChanged(function()
+    -- here we get our toggle object & then get its value
+    getgenv().CheckIfJumped = Toggles.MyToggleJP.Value
+end)
+
+
+
+-- UI Settings
+local MenuGroup = Tabs['UI Settings']:AddLeftGroupbox('Menu')
+
+-- I set NoUI so it does not show up in the keybinds menu
+MenuGroup:AddButton('Unload', function() Library:Unload() end)
+
+-- ThemeManager (Allows you to have a menu theme system)
+
+-- Hand the library over to our managers
+ThemeManager:SetLibrary(Library)
+SaveManager:SetLibrary(Library)
+
+-- Ignore keys that are used by ThemeManager. 
+-- (we dont want configs to save themes, do we?)
+SaveManager:IgnoreThemeSettings() 
+
+-- Adds our MenuKeybind to the ignore list 
+-- (do you want each config to have a different menu key? probably not.)
+SaveManager:SetIgnoreIndexes({ 'MenuKeybind' }) 
+MenuGroup:AddLabel('Menu bind'):AddKeyPicker('MenuKeybind', { Default = 'V', NoUI = true, Text = 'Menu keybind' }) 
+
+Library.ToggleKeybind = Options.MenuKeybind -- Allows you to have a custom keybind for the menu
+
+-- Addons:
+-- SaveManager (Allows you to have a configuration system)
+-- ThemeManager (Allows you to have a menu theme system)
+
+-- Hand the library over to our managers
+ThemeManager:SetLibrary(Library)
+SaveManager:SetLibrary(Library)
+
+-- Ignore keys that are used by ThemeManager. 
+-- (we dont want configs to save themes, do we?)
+SaveManager:IgnoreThemeSettings() 
+
+-- Adds our MenuKeybind to the ignore list 
+-- (do you want each config to have a different menu key? probably not.)
+SaveManager:SetIgnoreIndexes({ 'MenuKeybind' }) 
+MenuGroup:AddLabel('Menu bind'):AddKeyPicker('MenuKeybind', { Default = 'End', NoUI = true, Text = 'Menu keybind' }) 
+-- use case for doing it this way: 
+-- a script hub could have themes in a global folder
+-- and game configs in a separate folder per game
+ThemeManager:SetFolder('MyScriptHub')
+SaveManager:SetFolder('MyScriptHub/specific-game')
+
+-- Builds our config menu on the right side of our tab
+SaveManager:BuildConfigSection(Tabs['UI Settings']) 
+
+-- Builds our theme menu (with plenty of built in themes) on the left side
+-- NOTE: you can also call ThemeManager:ApplyToGroupbox to add it to a specific groupbox
+ThemeManager:ApplyToTab(Tabs['UI Settings'])
+
+-- You can use the SaveManager:LoadAutoloadConfig() to load a config 
+-- which has been marked to be one that auto loads!
+local Settings = {
+    range1 = Pluto.MemSpoofer.Minimum,
+    range2 = Pluto.MemSpoofer.Maximum
+}
+
+for __, v in pairs(game.CoreGui.RobloxGui.PerformanceStats:GetChildren()) do
+    if v.Name == "PS_Button" and v.StatsMiniTextPanelClass.TitleLabel.Text == "Mem" then
+        Memory = v.StatsMiniTextPanelClass.ValueLabel
     end
 end
 
+Memory:GetPropertyChangedSignal("Text"):Connect(function()
+    local Random = math.random(Settings.range1,Settings.range2)
+    Random = Random * 1.23 
+    Memory.Text = "".. Random .." MB"
+end)
 
+local LGroupBox = Tabs.Misc:AddLeftGroupbox('Blatant')
 
+LGroupBox:AddToggle('NoSlowToggle', {
+    Text = 'No-Slow',
+    Default = true, -- Default value (true / false)
+    Tooltip = 'Removes Slowness', -- Information shown when you hover over the toggle
+})
 
-getgenv().OldAimPart = Kean.Main.Part
-getgenv().AimPart = Kean.Main.Part -- For R15 Games: {UpperTorso, LowerTorso, HumanoidRootPart, Head} | For R6 Games: {Head, Torso, HumanoidRootPart}  
-    getgenv().AimlockKey = Kean.Main.Key
-    getgenv().AimRadius = Kean.Main.Radius -- How far away from someones character you want to lock on at
-    getgenv().ThirdPerson = Kean.Checks.ThirdPerson
-    getgenv().FirstPerson = Kean.Checks.FirstPerson
-    getgenv().TeamCheck = false -- Check if Target is on your Team (True means it wont lock onto your teamates, false is vice versa) (Set it to false if there are no teams)
-    getgenv().PredictMovement = true -- Predicts if they are moving in fast velocity (like jumping) so the aimbot will go a bit faster to match their speed 
-    getgenv().PredictionVelocity = Kean.Main.Prediction
-    getgenv().CheckIfJumped = Kean.Checks.JumpCheck
-    getgenv().Smoothness = Kean.Config.Smoothness
-    getgenv().SmoothnessAmount = Kean.Config.Amount
+-- Calls the passed function when the toggle is updated
+Toggles.NoSlowToggle:OnChanged(function()
+    local NoSlow = Toggles.NoSlowToggle.Value
+end)
 
-    local Players, Uis, RService, SGui = game:GetService"Players", game:GetService"UserInputService", game:GetService"RunService", game:GetService"StarterGui";
-    local Client, Mouse, Camera, CF, RNew, Vec3, Vec2 = Players.LocalPlayer, Players.LocalPlayer:GetMouse(), workspace.CurrentCamera, CFrame.new, Ray.new, Vector3.new, Vector2.new;
-    local Aimlock, MousePressed, CanNotify = true, false, false;
-    local AimlockTarget;
-    local OldPre;
-    
+LGroupBox:AddToggle('JumpCooldownToggle', {
+    Text = 'No-JumpCooldown',
+    Default = false, -- Default value (true / false)
+    Tooltip = 'Removes Jump Cooldown', -- Information shown when you hover over the toggle
+})
 
-    
-    getgenv().WorldToViewportPoint = function(P)
-        return Camera:WorldToViewportPoint(P)
-    end
-    
-    getgenv().WorldToScreenPoint = function(P)
-        return Camera.WorldToScreenPoint(Camera, P)
-    end
-    
-    getgenv().GetObscuringObjects = function(T)
-        if T and T:FindFirstChild(getgenv().AimPart) and Client and Client.Character:FindFirstChild("Head") then 
-            local RayPos = workspace:FindPartOnRay(RNew(
-                T[getgenv().AimPart].Position, Client.Character.Head.Position)
-            )
-            if RayPos then return RayPos:IsDescendantOf(T) end
-        end
-    end
-    
-    getgenv().GetNearestTarget = function()
-        -- Credits to whoever made this, i didnt make it, and my own mouse2plr function kinda sucks
-        local players = {}
-        local PLAYER_HOLD  = {}
-        local DISTANCES = {}
-        for i, v in pairs(Players:GetPlayers()) do
-            if v ~= Client then
-                table.insert(players, v)
-            end
-        end
-        for i, v in pairs(players) do
-            if v.Character ~= nil then
-                local AIM = v.Character:FindFirstChild("Head")
-                if getgenv().TeamCheck == true and v.Team ~= Client.Team then
-                    local DISTANCE = (v.Character:FindFirstChild("Head").Position - game.Workspace.CurrentCamera.CFrame.p).magnitude
-                    local RAY = Ray.new(game.Workspace.CurrentCamera.CFrame.p, (Mouse.Hit.p - game.Workspace.CurrentCamera.CFrame.p).unit * DISTANCE)
-                    local HIT,POS = game.Workspace:FindPartOnRay(RAY, game.Workspace)
-                    local DIFF = math.floor((POS - AIM.Position).magnitude)
-                    PLAYER_HOLD[v.Name .. i] = {}
-                    PLAYER_HOLD[v.Name .. i].dist= DISTANCE
-                    PLAYER_HOLD[v.Name .. i].plr = v
-                    PLAYER_HOLD[v.Name .. i].diff = DIFF
-                    table.insert(DISTANCES, DIFF)
-                elseif getgenv().TeamCheck == false and v.Team == Client.Team then 
-                    local DISTANCE = (v.Character:FindFirstChild("Head").Position - game.Workspace.CurrentCamera.CFrame.p).magnitude
-                    local RAY = Ray.new(game.Workspace.CurrentCamera.CFrame.p, (Mouse.Hit.p - game.Workspace.CurrentCamera.CFrame.p).unit * DISTANCE)
-                    local HIT,POS = game.Workspace:FindPartOnRay(RAY, game.Workspace)
-                    local DIFF = math.floor((POS - AIM.Position).magnitude)
-                    PLAYER_HOLD[v.Name .. i] = {}
-                    PLAYER_HOLD[v.Name .. i].dist= DISTANCE
-                    PLAYER_HOLD[v.Name .. i].plr = v
-                    PLAYER_HOLD[v.Name .. i].diff = DIFF
-                    table.insert(DISTANCES, DIFF)
-                end
-            end
-        end
-        
-        if unpack(DISTANCES) == nil then
-            return nil
-        end
-        
-        local L_DISTANCE = math.floor(math.min(unpack(DISTANCES)))
-        if L_DISTANCE > getgenv().AimRadius then
-            return nil
-        end
-        
-        for i, v in pairs(PLAYER_HOLD) do
-            if v.diff == L_DISTANCE then
-                return v.plr
-            end
-        end
-        return nil
-    end
-    
-    Mouse.KeyDown:Connect(function(a)
-        if not (Uis:GetFocusedTextBox()) then 
-            if a == AimlockKey and AimlockTarget == nil then
-                pcall(function()
-                    if MousePressed ~= true then MousePressed = true end 
-                    local Target;Target = GetNearestTarget()
-                    if Target ~= nil then 
-                        AimlockTarget = Target
-                    end
-                end)
-            elseif a == AimlockKey and AimlockTarget ~= nil then
-                if AimlockTarget ~= nil then AimlockTarget = nil end
-                if MousePressed ~= false then 
-                    MousePressed = false 
-                end
-            end
-        end
-    end)
-    
-    RService.RenderStepped:Connect(function()
-        if getgenv().ThirdPerson == true and getgenv().FirstPerson == true then 
-            if (Camera.Focus.p - Camera.CoordinateFrame.p).Magnitude > 1 or (Camera.Focus.p - Camera.CoordinateFrame.p).Magnitude <= 1 then 
-                CanNotify = true 
-            else 
-                CanNotify = false 
-            end
-        elseif getgenv().ThirdPerson == true and getgenv().FirstPerson == false then 
-            if (Camera.Focus.p - Camera.CoordinateFrame.p).Magnitude > 1 then 
-                CanNotify = true 
-            else 
-                CanNotify = false 
-            end
-        elseif getgenv().ThirdPerson == false and getgenv().FirstPerson == true then 
-            if (Camera.Focus.p - Camera.CoordinateFrame.p).Magnitude <= 1 then 
-                CanNotify = true 
-            else 
-                CanNotify = false 
-            end
-        end
-        if Aimlock == true and MousePressed == true then 
-            if AimlockTarget and AimlockTarget.Character and AimlockTarget.Character:FindFirstChild(getgenv().AimPart) then 
-                if getgenv().FirstPerson == true then
-                    if CanNotify == true then
-                        if getgenv().PredictMovement == true then
-                            if getgenv().Smoothness == true then
-                                --// The part we're going to lerp/smoothen \\--
-                                local Main = CF(Camera.CFrame.p, AimlockTarget.Character[getgenv().AimPart].Position + AimlockTarget.Character[getgenv().AimPart].Velocity/PredictionVelocity)
-                                
-                                --// Making it work \\--
-                                Camera.CFrame = Camera.CFrame:Lerp(Main, getgenv().SmoothnessAmount, Enum.EasingStyle.Elastic, Enum.EasingDirection.InOut)
-                            else
-                                Camera.CFrame = CF(Camera.CFrame.p, AimlockTarget.Character[getgenv().AimPart].Position + AimlockTarget.Character[getgenv().AimPart].Velocity/PredictionVelocity)
-                            end
-                        elseif getgenv().PredictMovement == false then 
-                            if getgenv().Smoothness == true then
-                                --// The part we're going to lerp/smoothen \\--
-                                local Main = CF(Camera.CFrame.p, AimlockTarget.Character[getgenv().AimPart].Position)
+-- Calls the passed function when the toggle is updated
+Toggles.JumpCooldownToggleToggle:OnChanged(function()
+    local NoJump = Toggles.JumpCooldownToggle.Value
+end)
 
-                                --// Making it work \\--
-                                Camera.CFrame = Camera.CFrame:Lerp(Main, getgenv().SmoothnessAmount, Enum.EasingStyle.Elastic, Enum.EasingDirection.InOut)
-                            else
-                                Camera.CFrame = CF(Camera.CFrame.p, AimlockTarget.Character[getgenv().AimPart].Position)
-                            end
-                        end
-                    end
-                end
-            end
-        end
-         if CheckIfJumped == true then
-       if AimlockTarget.Character.HuDDDDDDDDDDWmanoid.FloorMaterial == Enum.Material.Air then
-    
-           getgenv().AimPart = "UpperTorso"
-       else
-         getgenv().AimPart = getgenv().OldAimPart
+LGroupBox:AddToggle('NoDisplayToggle', {
+    Text = 'No-DisplayNames',
+    Default = false, -- Default value (true / false)
+    Tooltip = 'Removes Display Names', -- Information shown when you hover over the toggle
+})
 
-       end
-    end
+-- Calls the passed function when the toggle is updated
+Toggles.JumpCooldownToggleToggle:OnChanged(function()
+    local NoDisplay = Toggles.NoDisplayToggle.Value
 end)

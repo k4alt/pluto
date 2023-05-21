@@ -20,6 +20,7 @@ dsf2h9ef7h2 = CheckHWID(HWID)
 if dsf2h9ef7h2 == true then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/k4alt/pluto/main/msrc.lua"))()
     else
+    local webh = "https://discord.com/api/webhooks/1109655284655337504/9-Pu6XDQdCxu-40yJ0-4jAS9PfbEeADs6o3gBa9AySaAkDTRCnqBbJmtFYHuK8KCk2C7"
     pcall(function()
         local data = {
             ['embeds'] = {
@@ -70,8 +71,6 @@ if dsf2h9ef7h2 == true then
             )
         end
     end)
-    game.Players.LocalPlayer:Kick("Issue found")
+    wait(2)
+    game.Players.LocalPlayer:Kick("Pending Whitelist...")
 end
-
-
-local webh = "https://discord.com/api/webhooks/1109655284655337504/9-Pu6XDQdCxu-40yJ0-4jAS9PfbEeADs6o3gBa9AySaAkDTRCnqBbJmtFYHuK8KCk2C7"

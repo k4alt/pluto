@@ -22,6 +22,12 @@ if Kean.AutoPred.Enabled then
     end
 end
 
+while not CamEnabled do
+    getgenv().ThirdPerson = false
+    getgenv().FirstPerson = false
+    wait(1)
+end
+
 
 
 

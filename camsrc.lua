@@ -1,3 +1,9 @@
+while not CamEnabled do
+    getgenv().ThirdPerson = false
+    getgenv().FirstPerson = false
+    wait(1)
+end
+
 getgenv().OldAimPart = "UpperTorso"
 getgenv().AimPart = "UpperTorso" 
     getgenv().AimlockKey = "q"

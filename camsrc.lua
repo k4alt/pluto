@@ -1,4 +1,4 @@
-while not CamEnabled do
+while CamDisable do
     getgenv().ThirdPerson = false
     getgenv().FirstPerson = false
     wait(1)

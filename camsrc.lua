@@ -1,44 +1,15 @@
-local pingvalue = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
-local split = string.split(pingvalue, '(')
-local ping = tonumber(split[1])
-
-if Kean.AutoPred.Enabled then
-    if ping > 40 and ping <= 50 then
-        Kean.Main.Prediction = Kean.AutoPred.P50
-    elseif ping > 50 and ping <= 60 then
-        Kean.Main.Prediction = Kean.AutoPred.P60
-    elseif ping > 60 and ping <= 70 then
-        Kean.Main.Prediction = Kean.AutoPred.P70
-    elseif ping > 70 and ping <= 80 then
-        Kean.Main.Prediction = Kean.AutoPred.P80
-    elseif ping > 80 and ping <= 90 then
-        Kean.Main.Prediction = Kean.AutoPred.P90
-    elseif ping > 90 and ping <= 100 then
-        Kean.Main.Prediction = Kean.AutoPred.P100
-    elseif ping > 100 and ping <= 110 then
-        Kean.Main.Prediction = Kean.AutoPred.P110
-    elseif ping > 110 and ping <= 120 then
-        Kean.Main.Prediction = Kean.AutoPred.P120
-    end
-end
-
-
-
-
-
-
 getgenv().OldAimPart = "UpperTorso"
-getgenv().AimPart = "UpperTorso" -- For R15 Games: {UpperTorso, LowerTorso, HumanoidRootPart, Head} | For R6 Games: {Head, Torso, HumanoidRootPart}  
+getgenv().AimPart = "UpperTorso" 
     getgenv().AimlockKey = "q"
-    getgenv().AimRadius = 40 -- How far away from someones character you want to lock on at
-    getgenv().ThirdPerson = true
+    getgenv().AimRadius = 7.22
+    getgenv().ThirdPerson = true 
     getgenv().FirstPerson = true
-    getgenv().TeamCheck = false -- Check if Target is on your Team (True means it wont lock onto your teamates, false is vice versa) (Set it to false if there are no teams)
-    getgenv().PredictMovement = true -- Predicts if they are moving in fast velocity (like jumping) so the aimbot will go a bit faster to match their speed 
-    getgenv().PredictionVelocity = 7.64
+    getgenv().TeamCheck = false 
+    getgenv().PredictMovement = true
+    getgenv().PredictionVelocity = 25
     getgenv().CheckIfJumped = true
     getgenv().Smoothness = true
-    getgenv().SmoothnessAmount = 0.085
+    getgenv().SmoothnessAmount = 0.0421
 
     local Players, Uis, RService, SGui = game:GetService"Players", game:GetService"UserInputService", game:GetService"RunService", game:GetService"StarterGui";
     local Client, Mouse, Camera, CF, RNew, Vec3, Vec2 = Players.LocalPlayer, Players.LocalPlayer:GetMouse(), workspace.CurrentCamera, CFrame.new, Ray.new, Vector3.new, Vector2.new;
@@ -66,7 +37,6 @@ getgenv().AimPart = "UpperTorso" -- For R15 Games: {UpperTorso, LowerTorso, Huma
     end
     
     getgenv().GetNearestTarget = function()
-        -- Credits to whoever made this, i didnt make it, and my own mouse2plr function kinda sucks
         local players = {}
         local PLAYER_HOLD  = {}
         local DISTANCES = {}

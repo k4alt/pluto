@@ -7,13 +7,16 @@ local split = string.split(pingvalue,'(')
 local ping = tonumber(split[1])
 
 
+local RunService = game:GetService("RunService")
+
 while true do
-    wait(0.1)  -- Wait for 0.2 seconds
+    RunService.Heartbeat:Wait()  -- Wait for the next frame update
 
     if Pluto.AutoPred.Enabled then
         getgenv().Pluto.Silent.Prediction = ping * 0.00226
     end
 end
+
 
 if not game.IsLoaded(game) then 
     game.Loaded.Wait(game.Loaded);

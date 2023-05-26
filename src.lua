@@ -10,7 +10,7 @@ local ping = tonumber(split[1])
 local RunService = game:GetService("RunService")
 
 while true do
-    RunService.Heartbeat:Wait()  -- Wait for the next frame update
+    RunService.Heartbeat:Wait(0.2)  -- Wait for the next frame update
 
     if Pluto.AutoPred.Enabled then
         getgenv().Pluto.Silent.Prediction = ping * 0.00226

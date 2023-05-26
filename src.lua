@@ -1,37 +1,3 @@
-getgenv().Pluto = {
-    Silent = {
-        Enabled = true,
-        Keybind = "k",
-        Part = "UpperTorso",
-        Pred = 0.136,
-        ClosestPart = false,
-    },
-    FOV = {
-        Visible = false,
-        Radius = 30
-    },
-    AutoPred = {
-        Enabled = true,
-        P10 = 0.1001,
-        P20 = 0.12588,
-        P30 = 0.12746444,
-        P40 = 0.1256,
-        P50 = 0.1288,
-        P60 = 0.1293811,
-        P70 = 0.136,
-        P80 = 0.136,
-        P90 = 0.136,
-        P100 = 0.130340,
-        P110 = 0.1455,
-        P120 = 0.14376,
-        P130 = 0.156692,
-        P140 = 0.1223333,
-        P150 = 0.1652131,
-        P160 = 0.1223333,
-        P170 = 0.1923111
-    }
-}
-
 local pingvalue = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
 local split = string.split(pingvalue,'(')
 local ping = tonumber(split[1])

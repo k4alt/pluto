@@ -32,10 +32,6 @@ getgenv().Pluto = {
     }
 }
 
-if not game.IsLoaded(game) then 
-    game.Loaded.Wait(game.Loaded);
-end
-
 local pingvalue = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
 local split = string.split(pingvalue,'(')
 local ping = tonumber(split[1])

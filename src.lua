@@ -7,19 +7,42 @@ local split = string.split(pingvalue,'(')
 local ping = tonumber(split[1])
 
 
-local RunService = game:GetService("RunService")
-
-while true do
-    RunService.Heartbeat:Wait(0.2)  -- Wait for the next frame update
-
-    if Pluto.AutoPred.Enabled then
-        getgenv().Pluto.Silent.Prediction = ping * 0.00226
+if Pluto.AutoPred.Enabled then
+    if ping >= 0 and ping <= 10 then
+        getgenv().Pluto.Silent.Prediction = Pluto.AutoPred.P10
+    elseif ping > 10 and ping <= 20 then
+        getgenv().Pluto.Silent.Prediction = Pluto.AutoPred.P20
+    elseif ping > 20 and ping <= 30 then
+        getgenv().Pluto.Silent.Prediction = Pluto.AutoPred.P30
+    elseif ping > 30 and ping <= 40 then
+        getgenv().Pluto.Silent.Prediction = Pluto.AutoPred.P40
+    elseif ping > 40 and ping <= 50 then
+        getgenv().Pluto.Silent.Prediction = Pluto.AutoPred.P50
+    elseif ping > 50 and ping <= 60 then
+        getgenv().Pluto.Silent.Prediction = Pluto.AutoPred.P60
+    elseif ping > 60 and ping <= 70 then
+        getgenv().Pluto.Silent.Prediction = Pluto.AutoPred.P70
+    elseif ping > 70 and ping <= 80 then
+        getgenv().Pluto.Silent.Prediction = Pluto.AutoPred.P80
+    elseif ping > 80 and ping <= 90 then
+        getgenv().Pluto.Silent.Prediction = Pluto.AutoPred.P90
+    elseif ping > 90 and ping <= 100 then
+        getgenv().Pluto.Silent.Prediction = Pluto.AutoPred.P100
+    elseif ping > 100 and ping <= 110 then
+        getgenv().Pluto.Silent.Prediction = Pluto.AutoPred.P110
+    elseif ping > 110 and ping <= 120 then
+        getgenv().Pluto.Silent.Prediction = Pluto.AutoPred.P120
+    elseif ping > 120 and ping <= 130 then
+        getgenv().Pluto.Silent.Prediction = Pluto.AutoPred.P130
+    elseif ping > 130 and ping <= 140 then
+        getgenv().Pluto.Silent.Prediction = Pluto.AutoPred.P140
+    elseif ping > 140 and ping <= 150 then
+        getgenv().Pluto.Silent.Prediction = Pluto.AutoPred.P150
+    elseif ping > 150 and ping <= 160 then
+        getgenv().Pluto.Silent.Prediction = Pluto.AutoPred.P160
+    elseif ping > 160 and ping <= 170 then
+        getgenv().Pluto.Silent.Prediction = Pluto.AutoPred.P170
     end
-end
-
-
-if not game.IsLoaded(game) then 
-    game.Loaded.Wait(game.Loaded);
 end
 
 

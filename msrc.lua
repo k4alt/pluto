@@ -11,7 +11,7 @@ getgenv().Pluto = {
         Radius = 30
     },
     AutoPred = {
-        Enabled = false,
+        Enabled = true,
         P10 = 0.1001,
         P20 = 0.1105,
         P30 = 0.1181,

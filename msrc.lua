@@ -70,7 +70,6 @@ local Window = Library:CreateWindow({
 local Tabs = {
     -- Creates a new tab titled Main
     Main = Window:AddTab('Main'), 
-    Misc = Window:AddTab('Misc'), 
     ['UI Settings'] = Window:AddTab('UI Settings'),
 }
 

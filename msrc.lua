@@ -16,11 +16,11 @@ getgenv().Pluto = {
         P20 = 0.12588,
         P30 = 0.11,
         P40 = 0.114,
-        P50 = 0.1256,
-        P60 = 0.12731,
-        P70 = 0.119,
-        P80 = 0.1347,
-        P90 = 0.136,
+        P50 = 0.121,
+        P60 = 0.125,
+        P70 = 0.129,
+        P80 = 0.1295,
+        P90 = 0.13,
         P100 = 0.1315,
         P110 = 0.1344,
         P120 = 0.1411,
@@ -87,17 +87,21 @@ LeftGroupBox:AddToggle('MyToggleEn', {
     Tooltip = 'Enables/Disables the silent aim', -- Information shown when you hover over the toggle
 })
 
--- Fetching a toggle object for later use:
--- Toggles.MyToggle.Value
-
--- Toggles is a table added to getgenv() by the library
--- You index Toggles with the specified index, in this case it is 'MyToggle'
--- To get the state of the toggle you do toggle.Value
-
--- Calls the passed function when the toggle is updated
 Toggles.MyToggleEn:OnChanged(function()
     -- here we get our toggle object & then get its value
     getgenv().Pluto.Silent.Enabled = Toggles.MyToggleEn.Value
+end)
+
+LeftGroupBox:AddToggle('VisibleT', {
+    Text = 'Visible Check',
+    Default = false, -- Default value (true / false)
+    Tooltip = 'Checks if target is on screen', -- Information shown when you hover over the toggle
+})
+
+
+Toggles.VisibleT:OnChanged(function()
+    -- here we get our toggle object & then get its value
+    local smokinalldeadsgrahrahboom = Toggles.VisibleT.Value
 end)
 
 -- Tabboxes are a tiny bit different, but here's a basic example:
@@ -314,6 +318,20 @@ Options.MyDropdown2:OnChanged(function()
     key21 = Options.MyDropdown2.Value
 end)
 
+RightGroupBox:AddToggle('MyToggle17', {
+    Text = 'Predict Movement',
+    Default = true, -- Default value (true / false)
+    Tooltip = 'Toggles movement prediction', -- Information shown when you hover over the toggle
+})
+
+
+
+-- Calls the passed function when the toggle is updated
+Toggles.MyToggle17:OnChanged(function()
+    -- here we get our toggle object & then get its value
+    getgenv().PredictMovement = Toggles.MyToggle17.Value
+end)
+
 RightGroupBox:AddInput('MyTextboxPred', {
     Default = '7.64',
     Numeric = true, -- true / false, only allows numbers
@@ -325,25 +343,6 @@ RightGroupBox:AddInput('MyTextboxPred', {
     Placeholder = 'Prediction Amount', -- placeholder text when the box is empty
     -- MaxLength is also an option which is the max length of the text
 })
-
-RightGroupBox:AddToggle('MyTogglePE', {
-    Text = 'Predict Velocity',
-    Default = true, -- Default value (true / false)
-    Tooltip = 'Enables/Disables the prediction', -- Information shown when you hover over the toggle
-})
-
--- Fetching a toggle object for later use:
--- Toggles.MyToggle.Value
-
--- Toggles is a table added to getgenv() by the library
--- You index Toggles with the specified index, in this case it is 'MyToggle'
--- To get the state of the toggle you do toggle.Value
-
--- Calls the passed function when the toggle is updated
-Toggles.MyTogglePE:OnChanged(function()
-    -- here we get our toggle object & then get its value
-    getgenv().PredictMovement = true = Toggles.MyTogglePE.Value
-end)
 
 Options.MyTextboxPred:OnChanged(function()
     getgenv().PredictionVelocity = Options.MyTextboxPred.Value

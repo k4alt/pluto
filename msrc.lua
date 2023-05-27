@@ -326,6 +326,25 @@ RightGroupBox:AddInput('MyTextboxPred', {
     -- MaxLength is also an option which is the max length of the text
 })
 
+RightGroupBox:AddToggle('MyTogglePE', {
+    Text = 'Predict Velocity',
+    Default = true, -- Default value (true / false)
+    Tooltip = 'Enables/Disables the prediction', -- Information shown when you hover over the toggle
+})
+
+-- Fetching a toggle object for later use:
+-- Toggles.MyToggle.Value
+
+-- Toggles is a table added to getgenv() by the library
+-- You index Toggles with the specified index, in this case it is 'MyToggle'
+-- To get the state of the toggle you do toggle.Value
+
+-- Calls the passed function when the toggle is updated
+Toggles.MyTogglePE:OnChanged(function()
+    -- here we get our toggle object & then get its value
+    getgenv().PredictMovement = true = Toggles.MyTogglePE.Value
+end)
+
 Options.MyTextboxPred:OnChanged(function()
     getgenv().PredictionVelocity = Options.MyTextboxPred.Value
 end)

@@ -1,44 +1,52 @@
-local pingvalue = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
-local split = string.split(pingvalue,'(')
-local ping = tonumber(split[1])
+while Pluto.AutoPred.Enabled == true do
+    local ping = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
+    local pingValue = string.split(ping, " ")[1]
+    local pingNumber = tonumber(pingValue)
 
-
-if Pluto.AutoPred.Enabled then
-    if ping >= 0 and ping <= 10 then
-        getgenv().Pluto.Silent.Pred = Pluto.AutoPred.P10
-    elseif ping > 10 and ping <= 20 then
-        getgenv().Pluto.Silent.Pred = Pluto.AutoPred.P20
-    elseif ping > 20 and ping <= 30 then
-        getgenv().Pluto.Silent.Pred = Pluto.AutoPred.P30
-    elseif ping > 30 and ping <= 40 then
-        getgenv().Pluto.Silent.Pred = Pluto.AutoPred.P40
-    elseif ping > 40 and ping <= 50 then
-        getgenv().Pluto.Silent.Pred = Pluto.AutoPred.P50
-    elseif ping > 50 and ping <= 60 then
-        getgenv().Pluto.Silent.Pred = Pluto.AutoPred.P60
-    elseif ping > 60 and ping <= 70 then
-        getgenv().Pluto.Silent.Pred = Pluto.AutoPred.P70
-    elseif ping > 70 and ping <= 80 then
-        getgenv().Pluto.Silent.Pred = Pluto.AutoPred.P80
-    elseif ping > 80 and ping <= 90 then
-        getgenv().Pluto.Silent.Pred = Pluto.AutoPred.P90
-    elseif ping > 90 and ping <= 100 then
-        getgenv().Pluto.Silent.Pred = Pluto.AutoPred.P100
-    elseif ping > 100 and ping <= 110 then
-        getgenv().Pluto.Silent.Pred = Pluto.AutoPred.P110
-    elseif ping > 110 and ping <= 120 then
-        getgenv().Pluto.Silent.Pred = Pluto.AutoPred.P120
-    elseif ping > 120 and ping <= 130 then
-        getgenv().Pluto.Silent.Pred = Pluto.AutoPred.P130
-    elseif ping > 130 and ping <= 140 then
-        getgenv().Pluto.Silent.Pred = Pluto.AutoPred.P140
-    elseif ping > 140 and ping <= 150 then
-        getgenv().Pluto.Silent.Pred = Pluto.AutoPred.P150
-    elseif ping > 150 and ping <= 160 then
-        getgenv().Pluto.Silent.Pred = Pluto.AutoPred.P160
-    elseif ping > 160 and ping <= 170 then
-        getgenv().Pluto.Silent.Pred = Pluto.AutoPred.P170
+    if pingNumber < 30 then
+        getgenv().Pluto.Silent.Pred = 0.12588
+    elseif pingNumber < 40 then
+        getgenv().Pluto.Silent.Pred = 0.119
+    elseif pingNumber < 50 then
+        getgenv().Pluto.Silent.Pred = 0.1247
+    elseif pingNumber < 60 then
+        getgenv().Pluto.Silent.Pred = 0.127668
+    elseif pingNumber < 70 then
+        getgenv().Pluto.Silent.Pred = 0.12731
+    elseif pingNumber < 80 then
+        getgenv().Pluto.Silent.Pred = 0.12951
+    elseif pingNumber < 90 then
+        getgenv().Pluto.Silent.Pred = 0.1318
+    elseif pingNumber < 100 then
+        getgenv().Pluto.Silent.Pred = 0.1357
+    elseif pingNumber < 110 then
+        getgenv().Pluto.Silent.Pred = 0.133340
+    elseif pingNumber < 120 then
+        getgenv().Pluto.Silent.Pred = 0.1455
+    elseif pingNumber < 130 then
+        getgenv().Pluto.Silent.Pred = 0.143765
+    elseif pingNumber < 140 then
+        getgenv().Pluto.Silent.Pred = 0.156692
+    elseif pingNumber < 150 then
+        getgenv().Pluto.Silent.Pred = 0.1223333
+    elseif pingNumber < 160 then
+        getgenv().Pluto.Silent.Pred = 0.1521
+    elseif pingNumber < 170 then
+        getgenv().Pluto.Silent.Pred = 0.1626
+    elseif pingNumber < 180 then
+        getgenv().Pluto.Silent.Pred = 0.1923111
+    elseif pingNumber < 190 then
+        getgenv().Pluto.Silent.Pred = 0.19284
+    elseif pingNumber < 200 then
+        getgenv().Pluto.Silent.Pred = 0.166547
+    elseif pingNumber < 210 then
+        getgenv().Pluto.Silent.Pred = 0.16942
+    elseif pingNumber < 260 then
+        getgenv().Pluto.Silent.Pred = 0.1651
+    elseif pingNumber < 310 then
+        getgenv().Pluto.Silent.Pred = 0.16780
     end
+    wait(0.1)
 end
 
 

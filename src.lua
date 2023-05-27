@@ -1,3 +1,5 @@
+getgenv().Pluto.AutoPred.Enabled = true
+
 while Pluto.AutoPred.Enabled == true do
     local ping = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
     local pingValue = string.split(ping, " ")[1]

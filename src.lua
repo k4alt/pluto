@@ -158,7 +158,7 @@ while Pluto.AutoPred.Enabled == true do
     elseif pingNumber < 50 then
         getgenv().Pluto.Silent.Pred = 0.1247
     elseif pingNumber < 60 then
-        getgenv().Pluto.Silent.Pred = 0.127668
+        getgenv().Pluto.Silent.Pred = 0.1256
     elseif pingNumber < 70 then
         getgenv().Pluto.Silent.Pred = 0.12731
     elseif pingNumber < 80 then
@@ -166,7 +166,7 @@ while Pluto.AutoPred.Enabled == true do
     elseif pingNumber < 90 then
         getgenv().Pluto.Silent.Pred = 0.1318
     elseif pingNumber < 100 then
-        getgenv().Pluto.Silent.Pred = 0.1357
+        getgenv().Pluto.Silent.Pred = 0.136
     elseif pingNumber < 110 then
         getgenv().Pluto.Silent.Pred = 0.133340
     elseif pingNumber < 120 then

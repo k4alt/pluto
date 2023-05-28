@@ -1,6 +1,6 @@
 getgenv().Pluto = {
     Silent = {
-        Enabled = true,
+        Enabled = false,
         Keybind = "k",
         Part = "UpperTorso",
         Pred = 0.136,
@@ -11,24 +11,27 @@ getgenv().Pluto = {
         Radius = 30
     },
     AutoPred = {
-        Enabled = true
+        Enabled = true,
+        P10 = 0.1001,
+        P20 = 0.1105,
+        P30 = 0.1181,
+        P40 = 0.1234,
+        P50 = 0.1288,
+        P60 = 0.1332,
+        P70 = 0.1356,
+        P80 = 0.1381,
+        P90 = 0.1405,
+        P100 = 0.143,
+        P110 = 0.1454,
+        P120 = 0.1455,
+        P130 = 0.1503,
+        P140 = 0.1527,
+        P150 = 0.1551,
+        P160 = 0.1576,
+        P170 = 0.16
     }
 }
 
-getgenv().Kean = {
-    AutoPred = {
-        Enabled = false,
-        P40 = 9.6,
-        P50 = 9.6,
-        P60 = 7.64,
-        P70 = 7.64,
-        P80 = 7.64,
-        P90 = 6.405,
-        P100 = 6.7,
-        P110 = 6.34,
-        P120 = 6.34
-    }
-}
 -- New example script written by wally
 -- You can suggest changes with a pull request or something
 

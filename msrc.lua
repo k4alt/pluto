@@ -31,7 +31,11 @@ getgenv().Pluto = {
         P170 = 0.16
     }
 }
-
+getgenv().Kean = {
+    AutoPred = {
+        Enabled = true
+    }
+}
 -- New example script written by wally
 -- You can suggest changes with a pull request or something
 

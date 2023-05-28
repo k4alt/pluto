@@ -344,11 +344,6 @@ Toggles.MyToggleAutoP:OnChanged(function()
     getgenv().Kean.AutoPred.Enabled = Toggles.MyToggleAutoP.Value
 end)
 
-RightGroupBox:AddToggle('MyToggleSmooth', {
-    Text = 'Smoothness',
-    Default = true, -- Default value (true / false)
-    Tooltip = 'Smoothness (makes you look more legit)', -- Information shown when you hover over the toggle
-})
 RightGroupBox:AddSlider('MySliderAM', {
     Text = 'Smoothness: ',
 
@@ -375,10 +370,17 @@ Options.MySliderAM:OnChanged(function()
     getgenv().SmoothnessAmount = Options.MySliderAM.Value
 end)
 
+RightGroupBox:AddToggle('MyToggleSmooth', {
+    Text = 'Smoothness',
+    Default = true, -- Default value (true / false)
+    Tooltip = 'Smoothness (makes you look more legit)', -- Information shown when you hover over the toggle
+})
+
 Toggles.MyToggleSmooth:OnChanged(function()
     -- here we get our toggle object & then get its value
     getgenv().Smoothness = Toggles.MyToggleSmooth.Value
 end)
+
 local RightGroupBox = Tabs.Main:AddRightGroupbox('Checks')
 
 RightGroupBox:AddToggle('MyToggleFP', {

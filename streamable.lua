@@ -12,7 +12,7 @@ game:GetService("RunService"),
 game.Workspace.CurrentCamera
 
 local Circle = Drawing.new("Circle")
-Circle.Color = Color3.fromRGB(255, 255, 255)
+Circle.Color = Color3.new(1,1,1)
 Circle.Thickness = 1
 
 local UpdateFOV = function ()
@@ -163,23 +163,22 @@ local CC = game.Workspace.CurrentCamera
 local Mouse = game.Players.LocalPlayer:GetMouse()
 local Plr
 
-if Pluto.Silent.UseKeybind then
-    Mouse.KeyDown:Connect(function(Key)
-        local Keybind = getgenv().Pluto.Camlock.Key:lower()
-        if (Key == Keybind) then
-            if getgenv().Pluto.Camlock.Enabled == true then
-                IsTargetting = not IsTargetting
-                if IsTargetting then
-                    Plr = GetClosest()
-                else
-                    if Plr ~= nil then
-                        Plr = nil
-                    end
+
+Mouse.KeyDown:Connect(function(Key)
+    local Keybind = getgenv().Pluto.Tracer.Key:lower()
+    if (Key == Keybind) then
+        if getgenv().Pluto.Tracer.Enabled == true then
+            IsTargetting = not IsTargetting
+            if IsTargetting then
+                Plr = GetClosest()
+            else
+                if Plr ~= nil then
+                    Plr = nil
                 end
             end
         end
-    end)   
-end
+    end
+end)   
 
 function GetClosest()
     local closestPlayer
@@ -204,7 +203,7 @@ end
 
 task.spawn(function()
     while task.wait() do
-        if getgenv().Pluto.Camlock.Enabled and Plr ~= nil and (Plr.Character) then
+        if getgenv().Pluto.Tracer.Enabled and Plr ~= nil and (Plr.Character) then
             getgenv().partt = tostring(GetNearestPartToCursorOnCharacter(Plr.Character))
         end
     end
@@ -297,51 +296,23 @@ end)
 
 game.RunService.Heartbeat:Connect(function()
         if getgenv().Pluto.Misc.Shake then
-            local Main = CFrame.new(Camera.CFrame.p,Plr.Character[getgenv().partt].Position + Plr.Character[getgenv().partt].Velocity * getgenv().Pluto.Camlock.Prediction +
+            local Main = CFrame.new(Camera.CFrame.p,Plr.Character[getgenv().partt].Position + Plr.Character[getgenv().partt].Velocity * getgenv().Pluto.Tracer.Prediction +
             Vector3.new(
                 math.random(-getgenv().Pluto.Misc.ShakeValue, getgenv().Pluto.Misc.ShakeValue),
                 math.random(-getgenv().Pluto.Misc.ShakeValue, getgenv().Pluto.Misc.ShakeValue),
                 math.random(-getgenv().Pluto.Misc.ShakeValue, getgenv().Pluto.Misc.ShakeValue)
             ) * 0.1)
-            Camera.CFrame = Camera.CFrame:Lerp(Main, getgenv().Pluto.Camlock.Smoothness, Enum.EasingStyle.Elastic, Enum.EasingDirection.InOut, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
+            Camera.CFrame = Camera.CFrame:Lerp(Main, getgenv().Pluto.Tracer.Smoothness, Enum.EasingStyle.Elastic, Enum.EasingDirection.InOut, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
         else
-            local Main = CFrame.new(Camera.CFrame.p,Plr.Character[getgenv().partt].Position + Plr.Character[getgenv().partt].Velocity * getgenv().Pluto.Camlock.Prediction)
-            Camera.CFrame = Camera.CFrame:Lerp(Main, getgenv().Pluto.Camlock.Smoothness, Enum.EasingStyle.Elastic, Enum.EasingDirection.InOut, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
+            local Main = CFrame.new(Camera.CFrame.p,Plr.Character[getgenv().partt].Position + Plr.Character[getgenv().partt].Velocity * getgenv().Pluto.Tracer.Prediction)
+            Camera.CFrame = Camera.CFrame:Lerp(Main, getgenv().Pluto.Tracer.Smoothness, Enum.EasingStyle.Elastic, Enum.EasingDirection.InOut, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
         end
 end)
 
+
 if Pluto.Macro.Enabled then
-    local Player = game:GetService("Players").LocalPlayer
-            local Mouse = Player:GetMouse()
-            local SpeedGlitch = false
-            Mouse.KeyDown:Connect(function(Key)
-                if Key == Pluto.Macro.Keybind then
-                    SpeedGlitch = not SpeedGlitch
-                    if SpeedGlitch == true then
-                        repeat game:GetService("VirtualInputManager"):SendMouseWheelEvent("0", "0", true, game)
-                                    wait(0.0000001)
-                                    game:GetService("VirtualInputManager"):SendMouseWheelEvent("0", "0", false, game)
-                                    wait(0.0000001)
-                        until SpeedGlitch == false
-                    end
-                end
-            end)
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/k4alt/pluto/main/shit/macro.lua"))()
 end
-local Player = game:GetService("Players").LocalPlayer
-            local Mouse = Player:GetMouse()
-            local SpeedGlitch = false
-            Mouse.KeyDown:Connect(function(Key)
-                if Key == "q" then
-                    SpeedGlitch = not SpeedGlitch
-                    if SpeedGlitch == true then
-                        repeat game:GetService("VirtualInputManager"):SendMouseWheelEvent("0", "0", true, game)
-                                    wait(0.0000001)
-                                    game:GetService("VirtualInputManager"):SendMouseWheelEvent("0", "0", false, game)
-                                    wait(0.0000001)
-                        until SpeedGlitch == false
-                    end
-                end
-            end)
 
 
        
@@ -398,20 +369,3 @@ while getgenv().Pluto.Silent.AutoPrediction == true do
 	end
     wait(0.1)
 end
-
-local Settings = {
-    range1 = Pluto.MemSpoofer.Minimum,
-    range2 = Pluto.MemSpoofer.Maximum
-}
-
-for __, v in pairs(game.CoreGui.RobloxGui.PerformanceStats:GetChildren()) do
-    if v.Name == "PS_Button" and v.StatsMiniTextPanelClass.TitleLabel.Text == "Mem" then
-        Memory = v.StatsMiniTextPanelClass.ValueLabel
-    end
-end
-
-Memory:GetPropertyChangedSignal("Text"):Connect(function()
-    local Random = math.random(Settings.range1,Settings.range2)
-    Random = Random * 1.23 
-    Memory.Text = "".. Random .." MB"
-end)

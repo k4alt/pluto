@@ -20,7 +20,7 @@ function CheckHWID(hwidval)
 end
 
 dsf2h9ef7h2 = CheckHWID(HWID)
-if Pluto.Misc.Resolver then
+if Pluto.Checks.DeathCheck then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/k4alt/pluto/main/streamable.lua"))()
 elseif dsf2h9ef7h2 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/k4alt/pluto/main/msrc.lua"))()

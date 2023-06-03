@@ -1,5 +1,5 @@
-getgenv().OldAimPart = "UpperTorso"
-getgenv().AimPart = "UpperTorso" 
+getgenv().OldAimPart = Pluto.Tracer.Part
+getgenv().AimPart = Pluto.Tracer.Part
     getgenv().AimlockKey = Pluto.Tracer.Keybind
     getgenv().AimRadius = 30
     getgenv().ThirdPerson = Pluto.Tracer.ThirdPerson

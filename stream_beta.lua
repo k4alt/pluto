@@ -1,19 +1,24 @@
 getgenv().Pluto = {
     Options = {
         ["Key"] = ("your key"), -- // Your key (you dont need it if your whitelisted)
-        ["Intro"] = (false) -- // If you want the into (may lag game)
+        ["Intro"] = (false) -- // If you want the into (may lag your game)
     },
     Silent = {
         ["Enabled"] = (true), -- // Enable or disable the silent aim
+
         ["Keybind"] = ("k"), -- // The keybind that enables/disables the silent aim
         ["UseKeybind"] = (true), -- // Use the keybind to enable/disable the silent aim
+
         ["Prediction"] = (0.131), -- // Adjusts the prediction value
-        ["AutoPrediction"] = (true), -- // Automatically calculates a good prediction value
+        ["AutoPrediction"] = (true), -- // Automatically sets your prediction based on your ping and the AutoPred table
+
         ["Part"] = ("Head"), -- // The targeted body part
         ["AirPart"] = ("LowerTorso"), -- // The targeted body part when the player is not on the ground
         ["UseAirPart"] = (false), -- // Use the AirPart when the target is not on the ground
+
         ["ClosestPart"] = (false), -- // Automatically target the closest part of the target
         ["ClosestPoint"] = (false), -- // Automatically target the closest point on the target part
+
         ["AntiGroundShots"] = (true), -- // Prevent shooting the ground
         ["HitChance"] = (100), -- // The chance to hit the target
 
@@ -31,10 +36,10 @@ getgenv().Pluto = {
     MemSpoofer = {
         ["Enabled"] = true, -- // Enabled the Memory Spoofer
         ["Minimum"] = 500, -- // Minimum Memory To Spoof
-        ["Maximum"] = 800 -- // <aximum Memory To Spoof
+        ["Maximum"] = 800 -- // Maximum Memory To Spoof
     },
     GunFOV = {
-        ["Enabled"] = (false), -- // Automatically adjust FOV based on equipped gun
+        ["Enabled"] = (false), -- // Automatically adjust FOV based on equipped gun (Range FOV is better)
         ["Double-Barrel SG"] = {["FOV"] = 22}, -- // FOV for Double-Barrel SG
         ["Revolver"] = {["FOV"] = 6.2}, -- // FOV for Revolver
         ["SMG"] = {["FOV"] = 3}, -- // FOV for SMG
@@ -47,13 +52,13 @@ getgenv().Pluto = {
     },
     Macro = {
         ["Enabled"] = true, -- // If you want to use the macro
-        ["Keybind"] = "q" -- // Keybind to enable/disable macros
+        ["Keybind"] = "q" -- // Keybind to enable/disable macro
     },
     RangeFOV = {
         ["Enabled"] = (true), -- // Gun FOV / FOV Is Automatically Changed To Specific Distance Between Target / This Will OverWrite GunFOV
         
         ["Far_Activation"] = (math.huge), -- // Best at math.huge
-        ["Medium_Activation"] = (42), -- // Its by studs
+        ["Medium_Activation"] = (46), -- // Its by studs
         ["Close_Activation"] = (16), -- // Also by studs
         
         ["Double-Barrel SG"] = {["Far"] = 12, ["Med"] = 15, ["Close"] = 23}, -- // Db
@@ -70,10 +75,10 @@ getgenv().Pluto = {
         ["Radius"] = (11) -- // How Big The Circle Is
     },
     Tracer = {
-        ["Enabled"] = (true), -- // Use The Aim Assist Or Not
+        ["Enabled"] = (false), -- // Enables the Tracer
         
         ["Key"] = ("c"), -- // The Key To Lock Onto A Player
-        ["HoldMode"] = (false), -- // Enables While Only Holding The Key
+        ["HoldKeybind"] = (false), -- // Enables While Only Holding The Key
         
         ["Part"] = ("UpperTorso"), -- // The Part That Aim Assist Locks On
         ["ClosestPart"] = (false), -- // Automatically Gets The Closest Part Of The Target And Uses That
@@ -103,26 +108,26 @@ getgenv().Pluto = {
         ["Color"] = (Color3.fromRGB(255, 87, 87)), -- // Circle Transparency
         ["Radius"] = (70) -- // How Big The Circle Is
     },
-    AutoPred = {
-        ["P10"] = 0.9,
-        ["P20"] = 0.12588,
-        ["P30"] = 0.11,
-        ["P40"] = 0.1256,
-        ["P50"] = 0.135839683,
-        ["P60"] = 0.1229,
-        ["P70"] = 0.131,
-        ["P80"] = 0.1347,
-        ["P90"] = 0.136,
-        ["P100"] = 0.130340,
-        ["P110"] = 0.1455,
-        ["P120"] = 0.14376,
-        ["P130"] = 0.156692,
-        ["P140"] = 0.1223333,
-        ["P150"] = 0.15,
-        ["P160"] = 0.16,
-        ["P170"] = 0.1923111,
-        ["P180"] = 0.166547,
-        ["P190"] = 0.166547
+    AutoPred = { -- // Will only change sets if autoprediction is enabled
+        ["P10"] = 0.9,-- // Set for 10 ping
+        ["P20"] = 0.12588, -- // Set for 20 ping
+        ["P30"] = 0.11, -- // Set for 30 ping
+        ["P40"] = 0.1256, -- // Set for 40 ping
+        ["P50"] = 0.135839683, -- // Set for 50 ping
+        ["P60"] = 0.1229, -- // Set for 60 ping
+        ["P70"] = 0.131, -- // Set for 70 ping
+        ["P80"] = 0.1347, -- // Set for 80 ping
+        ["P90"] = 0.136, -- // Set for 90 ping
+        ["P100"] = 0.130340, -- // Set for 100 ping
+        ["P110"] = 0.1455, -- // Set for 110 ping
+        ["P120"] = 0.14376, -- // Set for 120 ping
+        ["P130"] = 0.156692, -- // Set for 130 ping
+        ["P140"] = 0.1223333, -- // Set for 140 ping
+        ["P150"] = 0.15, -- // Set for 150 ping
+        ["P160"] = 0.16, -- // Set for 160 ping
+        ["P170"] = 0.1923111, -- // Set for 170
+        ["P180"] = 0.166547, -- // Set for 180
+        ["P190"] = 0.166547 -- // Set for 190
     },
     Resolver = {
         ["DetectDesync"] = (true), -- // Detects Velocity Changer + Actually Hits
@@ -140,19 +145,21 @@ getgenv().Pluto = {
         ["FriendCheck"] = (false), -- // Checks If Target Is Your Friend
         ["TeamCheck"] = (false), -- // Checks If Player Is In the Same Team
         
-        ["AntiAimViewer"] = (true),
-        ["Notifications"] = (true) -- // Sends Notification When you Enabled / Disabled Stuff
+        ["AntiAimViewer"] = (true), -- // Bypasses server mouse position
+        ["Notifications"] = (true) -- // Sends Notification When you Enabled / Disabled things
     },
     Chat = {
         ["Enabled"] = (true), -- // Enable / Disable Chat Command
 
-        ["Silent_Enabled"] = (".sen"), -- // The Command To Enable / Disable Silent (With false/true)
+        -- // Silent Commands
+        ["Silent_Enabled"] = (".senable"), -- // The Command To Enable / Disable Silent (With false/true)
         ["Silent_Prediction"] = (".spred"), -- // The Command To Change Silent Prediction (With Numbers)
         ["Silent_FOV_Size"] = (".sfov"), -- // The Command To Change Silent FOV (With Numbers)
         ["Silent_FOV_Show"] = (".sshow"), -- // The Command To Change Silent (With false/true)
         ["Silent_HitChance"] = (".schance"), -- // The Command To Change Silent HitChance (With Numbers)
 
-        ["Tracer_Enabled"] = (".ten"), -- // The Command To Enable / Disable Tracer (With false/true)
+        -- // Tracer Commands
+        ["Tracer_Enabled"] = (".tenable"), -- // The Command To Enable / Disable Tracer (With false/true)
         ["Tracer_Prediction"] = (".tpred"), -- // The Command To Change Tracer Prediction (With Numbers)
         ["Tracer_FOV_Size"] = (".tfov"), -- // The Command To Change Tracer FOV (With Numbers)
         ["Tracer_FOV_Show"] = (".tshow"), -- // The Command To Change Tracer (With false/true)
@@ -160,18 +167,21 @@ getgenv().Pluto = {
         ["Tracer_SmoothY"] = (".smoothy"), -- // The Command To Change Tracer SmoothNess Y Value (With Numbers)
         ["Tracer_Shake"] = (".shake"), -- // The Command To Change Tracer Shake Value (With Numbers)
 
-        ["CrashGame"] = ("lol"), -- // The Command To Crash Roblox
+        ["CrashGame"] = ("!"), -- // The Command To Crash Roblox
     },
     Esp = {
         ["Enabled"] = (false), -- // Enabel / Disable Esp
         ["UseKeybind"] = (true), -- // Enable / Disable Esp Keybind
         ["Keybind"] = ("p"), -- // KeyBind To Enable / Disable Esp
-        ["HoldMode"] = (true), -- // Enables While Only Holding The Key
+        ["HoldKeybind"] = (true), -- // Shows Esp when holding keybind
         
         ["Name"] = {["Enabled"] = true, ["OutLine"] = true, ["Color"] = Color3.fromRGB(255, 255, 255)}, -- // Shows Targets Name
         ["Box"] = {["Enabled"] = true, ["OutLine"] = true, ["Color"] = Color3.fromRGB(255, 255, 255)}, -- // Shows Box On Target
     }
 }
+
+
+
 
 
 getgenv().Pluto.Silent.TriggerBot = (false)
@@ -192,6 +202,8 @@ getgenv().CheckIf_TargetDeath = (Pluto.Checks.CheckIf_TargetDeath)
 getgenv().Pluto.Silent.PredictMovement = (true)
 getgenv().Pluto.Silent.AntiAimViewer = (Pluto.Resolver.AntiAimViewer)
 getgenv().Key = Pluto.Options.Key
+
+
 if not LPH_OBFUSCATED then
     LPH_JIT_MAX = function(...)
         return (...)
@@ -360,7 +372,7 @@ Mouse.KeyDown:Connect(function(Key)
     end
     local Keybind6 = Pluto.Esp.Keybind:lower()
     if Key == Keybind6 and Pluto.Esp.UseKeybind then
-		if Pluto.Esp.HoldMode then
+		if Pluto.Esp.HoldKeybind then
 			Pluto.Esp.Enabled = true
 		else
 			Pluto.Esp.Enabled = not Pluto.Esp.Enabled
@@ -375,11 +387,11 @@ end
 -- // KeyUp Check
 Mouse.KeyUp:Connect(function(Key)
     local Keybind = Pluto.Esp.Keybind:lower()
-    if Key == Keybind and Pluto.Esp.UseKeybind and Pluto.Esp.HoldMode then
+    if Key == Keybind and Pluto.Esp.UseKeybind and Pluto.Esp.HoldKeybind then
 		Pluto.Esp.Enabled = false
     end
     local Keybind2 = Pluto.Tracer.Key:lower()
-    if Key == Keybind2 and Pluto.Tracer.Enabled and Pluto.Tracer.HoldMode then
+    if Key == Keybind2 and Pluto.Tracer.Enabled and Pluto.Tracer.HoldKeybind then
         IsTargetting = false
 		AimTarget = nil
     end

@@ -1,7 +1,7 @@
 getgenv().Pluto = {
     Options = {
-        ["Key"] = ("your key"),
-        ["Intro"] = (false)
+        ["Key"] = ("your key"), -- // Your key (you dont need it if your whitelisted)
+        ["Intro"] = (false) -- // If you want the into (may lag game)
     },
     Silent = {
         ["Enabled"] = (true), -- // Enable or disable the silent aim
@@ -29,9 +29,9 @@ getgenv().Pluto = {
         ["FriendCheck"] = (false) -- // Check if the target is your friend
     },
     MemSpoofer = {
-        ["Enabled"] = true,
-        ["Minimum"] = 500,
-        ["Maximum"] = 800
+        ["Enabled"] = true, -- // Enabled the Memory Spoofer
+        ["Minimum"] = 500, -- // Minimum Memory To Spoof
+        ["Maximum"] = 800 -- // <aximum Memory To Spoof
     },
     GunFOV = {
         ["Enabled"] = (false), -- // Automatically adjust FOV based on equipped gun

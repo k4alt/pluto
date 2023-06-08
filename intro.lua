@@ -1,5 +1,6 @@
+wait(3)
 -- shitty image
-local IMAGE_ID = "rbxassetid://13683648800"
+local IMAGE_ID = "rbxassetid://13483817431"
 
 -- get services
 local Players = game:GetService("Players")
@@ -12,7 +13,7 @@ Gui.Parent = LocalPlayer.PlayerGui
 -- create a shitty image label to hold shitty image
 local ImageLabel = Instance.new("ImageLabel")
 ImageLabel.BackgroundTransparency = 1
-ImageLabel.Size = UDim2.new(0, 50, 0, 50) -- Set the initial size of the image label to small
+ImageLabel.Size = UDim2.new(0, 1000, 0, 1000) -- Set the initial size of the image label to small
 ImageLabel.Image = IMAGE_ID
 ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0) -- Position the image label at the center of the screen
 ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)

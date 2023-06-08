@@ -1,10 +1,14 @@
 getgenv().Pluto = {
+    Options = {
+        ["Key"] = ("your key"),
+        ["Intro"] = (false)
+    },
     Silent = {
         ["Enabled"] = (true), -- // Enable or disable the silent aim
         ["Keybind"] = ("k"), -- // The keybind that enables/disables the silent aim
         ["UseKeybind"] = (true), -- // Use the keybind to enable/disable the silent aim
-        ["Prediction"] = (0.136), -- // Adjusts the prediction value
-        ["AutoPrediction"] = (false), -- // Automatically calculates a good prediction value
+        ["Prediction"] = (0.131), -- // Adjusts the prediction value
+        ["AutoPrediction"] = (true), -- // Automatically calculates a good prediction value
         ["Part"] = ("Head"), -- // The targeted body part
         ["AirPart"] = ("LowerTorso"), -- // The targeted body part when the player is not on the ground
         ["UseAirPart"] = (false), -- // Use the AirPart when the target is not on the ground
@@ -42,29 +46,28 @@ getgenv().Pluto = {
         ["AR"] = {["FOV"] = 2.8} -- // FOV for AR
     },
     Macro = {
-        ["Enabled"] = true,
+        ["Enabled"] = true, -- // If you want to use the macro
         ["Keybind"] = "q" -- // Keybind to enable/disable macros
     },
     RangeFOV = {
         ["Enabled"] = (true), -- // Gun FOV / FOV Is Automatically Changed To Specific Distance Between Target / This Will OverWrite GunFOV
         
-        ["Far_Activation"] = (math.huge), -- // Just Keep It At Math.Huge
-        ["Medium_Activation"] = (42), -- // Its Using Studs
-        ["Close_Activation"] = (16), -- // Its Uisng Studs
+        ["Far_Activation"] = (math.huge), -- // Best at math.huge
+        ["Medium_Activation"] = (42), -- // Its by studs
+        ["Close_Activation"] = (16), -- // Also by studs
         
         ["Double-Barrel SG"] = {["Far"] = 12, ["Med"] = 15, ["Close"] = 23}, -- // Db
         ["Revolver"] = {["Far"] = 10, ["Med"] = 17, ["Close"] = 21}, -- // Rev
         ["SMG"] = {["Far"] = 8, ["Med"] = 10, ["Close"] = 13}, -- // Smg
         ["Shotgun"] = {["Far"] = 11, ["Med"] = 15, ["Close"] = 19}, -- // Shotgun
         ["Rifle"] = {["Far"] = 3, ["Med"] = 4, ["Close"] = 6}, -- // Rifle
-        -- // You Can Add Custom Weapons If You Want To :p
     },
     SilentFOV = {
-        ["Visible"] = (false), -- // If The Circle Is Showing Or Not
+        ["Visible"] = (true), -- // If The Circle Is Showing Or Not
         ["Filled"] = (false), -- // If The Circle Is Filled
-        ["Transparency"] = (1), -- // The Circle Transparency
+        ["Transparency"] = (0.3), -- // The Circle Transparency
         ["Color"] = (Color3.fromRGB(87, 237, 255)), -- // Circle Transparency
-        ["Radius"] = (10) -- // How Big The Circle Is
+        ["Radius"] = (11) -- // How Big The Circle Is
     },
     Tracer = {
         ["Enabled"] = (true), -- // Use The Aim Assist Or Not
@@ -76,7 +79,7 @@ getgenv().Pluto = {
         ["ClosestPart"] = (false), -- // Automatically Gets The Closest Part Of The Target And Uses That
         
         ["DisableTargetDeath"] = (true), -- // Disables When Target Dies
-        ["DisableLocalDeath"] = (true), -- // Disables When You Died
+        ["DisableOnYourDeath"] = (true), -- // Disables When You Died
         ["DisableOn_KO"] = (true), -- // Disables If Target Is KO Or Grabbed
         
         ["UseCircleRadius"] = (true), -- // Only Locks On To People Inside The Circle
@@ -101,19 +104,19 @@ getgenv().Pluto = {
         ["Radius"] = (70) -- // How Big The Circle Is
     },
     AutoPred = {
-        ["P10"] = 0.07,
-        ["P20"] = 0.155,
-        ["P30"] = 0.132,
-        ["P40"] = 0.136,
-        ["P50"] = 0.130,
-        ["P60"] = 0.136,
-        ["P70"] = 0.138,
-        ["P80"] = 0.138,
-        ["P90"] = 0.146,
-        ["P100"] = 0.14322,
-        ["P110"] = 0.146,
-        ["P120"] = 0.149,
-        ["P130"] = 0.151,
+        ["P10"] = 0.9,
+        ["P20"] = 0.12588,
+        ["P30"] = 0.11,
+        ["P40"] = 0.1256,
+        ["P50"] = 0.135839683,
+        ["P60"] = 0.1229,
+        ["P70"] = 0.131,
+        ["P80"] = 0.1347,
+        ["P90"] = 0.136,
+        ["P100"] = 0.130340,
+        ["P110"] = 0.1455,
+        ["P120"] = 0.14376,
+        ["P130"] = 0.156692,
         ["P140"] = 0.1223333,
         ["P150"] = 0.15,
         ["P160"] = 0.16,
@@ -140,7 +143,7 @@ getgenv().Pluto = {
         ["AntiAimViewer"] = (true),
         ["Notifications"] = (true) -- // Sends Notification When you Enabled / Disabled Stuff
     },
-    Commands = {
+    Chat = {
         ["Enabled"] = (true), -- // Enable / Disable Chat Command
 
         ["Silent_Enabled"] = (".sen"), -- // The Command To Enable / Disable Silent (With false/true)
@@ -188,6 +191,7 @@ getgenv().CheckIf_KO = (Pluto.Checks.CheckIf_KO)
 getgenv().CheckIf_TargetDeath = (Pluto.Checks.CheckIf_TargetDeath)
 getgenv().Pluto.Silent.PredictMovement = (true)
 getgenv().Pluto.Silent.AntiAimViewer = (Pluto.Resolver.AntiAimViewer)
+getgenv().Key = Pluto.Options.Key
 if not LPH_OBFUSCATED then
     LPH_JIT_MAX = function(...)
         return (...)
@@ -234,50 +238,50 @@ Script.Drawing.TracerCircle.Thickness = 1
 
 -- // Chat Check
 Client.Chatted:Connect(function(Msg)
-    if Msg == Pluto.Commands.CrashGame then
+    if Msg == Pluto.Chat.CrashGame then
         while true do end
     end
     local Splitted = string.split(Msg, " ")
-    if Splitted[1] and Splitted[2] and Pluto.Commands.Enabled then
-        if Splitted[1] == Pluto.Commands.Silent_Prediction then
+    if Splitted[1] and Splitted[2] and Pluto.Chat.Enabled then
+        if Splitted[1] == Pluto.Chat.Silent_Prediction then
             Pluto.Silent.Prediction = Splitted[2]
-        elseif Splitted[1] == Pluto.Commands.Silent_FOV_Size then
+        elseif Splitted[1] == Pluto.Chat.Silent_FOV_Size then
             Pluto.SilentFOV.Radius = Splitted[2]
-        elseif Splitted[1] == Pluto.Commands.Silent_FOV_Show then
+        elseif Splitted[1] == Pluto.Chat.Silent_FOV_Show then
             if Splitted[2] == "true" then
                 Pluto.SilentFOV.Visible = true
             else
                 Pluto.SilentFOV.Visible = false
             end
-        elseif Splitted[1] == Pluto.Commands.Silent_Enabled then
+        elseif Splitted[1] == Pluto.Chat.Silent_Enabled then
             if Splitted[2] == "true" then
                 Pluto.Silent.Enabled = true
             else
                 Pluto.Silent.Enabled = false 
             end
-        elseif Splitted[1] == Pluto.Commands.Silent_HitChance then
+        elseif Splitted[1] == Pluto.Chat.Silent_HitChance then
             Pluto.Silent.HitChance = Splitted[2]
-        elseif Splitted[1] == Pluto.Commands.Tracer_Prediction then
+        elseif Splitted[1] == Pluto.Chat.Tracer_Prediction then
             Pluto.Tracer.Prediction = Splitted[2]
-        elseif Splitted[1] == Pluto.Commands.Tracer_FOV_Size then
+        elseif Splitted[1] == Pluto.Chat.Tracer_FOV_Size then
             Pluto.TracerFOV.Radius = Splitted[2]
-        elseif Splitted[1] == Pluto.Commands.Tracer_FOV_Show then
+        elseif Splitted[1] == Pluto.Chat.Tracer_FOV_Show then
             if Splitted[2] == "true" then
                 Pluto.TracerFOV.Visible = true
             else
                 Pluto.TracerFOV.Visible = false
             end
-        elseif Splitted[1] == Pluto.Commands.Tracer_Enabled then
+        elseif Splitted[1] == Pluto.Chat.Tracer_Enabled then
             if Splitted[2] == "true" then
                 Pluto.Tracer.Enabled = true
             else
                 Pluto.Tracer.Enabled = false
             end
-        elseif Splitted[1] == Pluto.Commands.Tracer_SmoothX then
+        elseif Splitted[1] == Pluto.Chat.Tracer_SmoothX then
             Pluto.Tracer.Smoothness_X = Splitted[2]
-        elseif Splitted[1] == Pluto.Commands.Tracer_SmoothY then
+        elseif Splitted[1] == Pluto.Chat.Tracer_SmoothY then
             Pluto.Tracer.Smoothness_Y = Splitted[2]
-        elseif Splitted[1] == Pluto.Commands.Tracer_Shake then
+        elseif Splitted[1] == Pluto.Chat.Tracer_Shake then
             Pluto.Tracer.ShakeValue = Splitted[2]
         end
     end
@@ -869,7 +873,7 @@ Script.Functions.MouseChanger = LPH_NO_VIRTUALIZE(function()
         end
 
         if Script.Functions.Alive(Client) then
-            if Pluto.Tracer.DisableLocalDeath then
+            if Pluto.Tracer.DisableOnYourDeath then
                 if Client.Character.Humanoid.health < 4 then
                     AimTarget = nil
                     IsTargetting = false

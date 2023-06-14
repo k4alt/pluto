@@ -164,7 +164,7 @@ getgenv().AimPart = "UpperTorso"
             end
         end
          if CheckIfJumped == true then
-       if AimlockTarget.Character.HuDDDDDDDDDDWmanoid.FloorMaterial == Enum.Material.Air then
+       if AimlockTarget.Character.Humanoid.FloorMaterial == Enum.Material.Air then
     
            getgenv().AimPart = "UpperTorso"
        else
